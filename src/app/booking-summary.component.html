@@ -1,0 +1,15 @@
+<h3>Booking Summary</h3>
+
+<p>Booking Name: {{ bookingData?.booking_name }}</p>
+<p>WhatsApp Number: {{ bookingData?.whatsapp_number }}</p>
+<p>Occasion: {{ bookingData?.occasion }}</p>
+<p>People Count: {{ bookingData?.people_count }}</p>
+<p>Special Person: {{ bookingData?.special_person_name }}</p>
+<p>Message: {{ bookingData?.message }}</p>
+<p>Date: {{ bookingData?.selected_date }}</p>
+<p>Slot: {{ bookingData?.selected_slot }}</p>
+<p>Room Type: {{ bookingData?.selected_room_type }} (Rs. {{ bookingData?.selected_room_price }})</p>
+<p>Cake: {{ bookingData?.selected_cake }} (Rs. {{ bookingData?.cake_price }})</p>
+<p>Special Decor: {{ bookingData?.selected_decor }} (Rs. {{ bookingData?.decor_price }})</p>
+
+<h4>Total Amount: Rs. {{ bookingData?.total_amount }}</h4>
