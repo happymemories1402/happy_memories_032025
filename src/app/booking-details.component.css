@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background: #f5f5f5;
   margin: 0;
-  padding: 20px;
+  padding: 30px;
 }
 
 /* Wrapper for Booking Details & Summary */
@@ -14,7 +14,7 @@ body {
   align-items: flex-start;
   max-width: 1200px;
   margin: auto;
-  gap: 20px;
+  gap: 30px;
 }
 
 /* Booking Container (Left Section) */
@@ -22,9 +22,11 @@ body {
   flex: 1;
   min-width: 300px;
   max-width: 750px;
-  padding: 20px;
-  background: white;
+  margin: 50; 
+  padding: 10px;
+  background: #d9d9d9d4;
   border-radius: 10px;
+  border: 1px solid #000
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -33,22 +35,11 @@ body {
   flex: 0.4;
   min-width: 280px;
   padding: 20px;
-  background: white;
+  background: #d9d9d9d4;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 20px;
-}
-
-/* Section Styling */
-.section {
-  padding: 15px 0;
-}
-
-.section h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #333;
 }
 
 /* Form Styles */
@@ -65,36 +56,49 @@ body {
 .form-group input,
 .form-group select,
 .form-group textarea {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
   transition: all 0.3s;
 }
+/* Validation: Highlight Required Fields if Empty */
+.form-group input.ng-invalid.ng-touched,
+.form-group select.ng-invalid.ng-touched,
+.form-group textarea.ng-invalid.ng-touched {
+  border: 1px solid red; /* Red border when input is invalid */
+  background: #ffe5e5; /* Light red background for visibility */
+}
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #007bff;
-  outline: none;
+/* Error Message Styling */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 /* Counter for People Count */
 .counter {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .counter button {
-  padding: 5px 15px;
   background: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 5%;
 }
+/* Separator Line */
+  .section-divider {
+    margin: 20px 0;
+    border: none;
+    background: 2px solid #c20a0a;
+  }
 
 /* Buttons */
 button {
@@ -113,11 +117,27 @@ button:hover {
   background: #218838;
 }
 
-/* Special Decor Section */
-.special-decor {
-  padding: 20px 0;
+/* Booking Section */
+.section {
+  padding: 5px;
 }
 
+/* Section Heading */
+.section h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* Special Decor Section */
+.special-decor {
+  padding: 0px 0;
+}
+.special-decor h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
 .decor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
