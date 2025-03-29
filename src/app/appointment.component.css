@@ -131,7 +131,7 @@ p {
 ::ng-deep .bs-datepicker-container {
   z-index: 1050 !important;
   position: absolute !important;
-  background-color: rgb(185, 180, 180) !important;
+  background-color: white !important;
   box-shadow: 0px 4px 10px rgba(226, 224, 224, 0.2);
   border-radius: 8px;
   top: 100% !important; /* Ensure it opens below the input */
