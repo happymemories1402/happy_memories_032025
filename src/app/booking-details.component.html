@@ -47,84 +47,21 @@
         </div>
 
         <div class="form-group">
-          <label>Room type <span class="error">*</span> </label>
-          <select formControlName="roomType" (change)="onRoomTypeSelect($event)">
-            <option value="">Select Room</option>
-            <option *ngFor="let room of rooms" [value]="room.name + '-' + room.price">
-              {{ room.name }} - Rs. {{ room.price }}
-            </option>
-          </select>
-          <!-- Show validation message when field is empty -->
-          <div *ngIf="bookingForm.controls['roomType'].touched && bookingForm.controls['roomType'].invalid" class="error">
-             Room selection is required.
-          </div>
-        </div>
-
-        <div class="form-group">
           <label>Special Person Name</label>
           <input formControlName="specialPerson" type="text" />
         </div>
 
         <div class="form-group">
           <label>Message</label>
-          <textarea formControlName="message"></textarea>
+          <textarea formControlName="message" placeholder='Tell us what you are celebrating and if need any special decoration, cakes to make it more special. Our team will get in touch to discuss details.'></textarea>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Select a Date <span class="error">*</span> </label>
-        <input type="date" formControlName="selectedDate" [min]="today" (change)="onDateChange($event)"/>
-        <div *ngIf="bookingForm.controls['selectedDate'].touched && bookingForm.controls['selectedDate'].invalid" class="error">
-            Required.
-          </div>
-      </div>
-
-      <div class="form-group">
-        <label>Select a Time Slot <span class="error">*</span> </label>
-        <select formControlName="selectedSlot">
-          <option *ngFor="let slot of filteredSlots" [value]="slot.start + ' - ' + slot.end">
-            {{ slot.start }} - {{ slot.end }}
-          </option>
-        </select>
-        <div *ngIf="bookingForm.controls['selectedSlot'].touched && bookingForm.controls['selectedSlot'].invalid" class="error">
-            Required.
-          </div>
-      </div>
-
-  <!-- Date Picker -->
-  <div class="form-group">
-    <label>Select a Date <span class="error">*</span></label>
-    <input type="date" formControlName="selectedDate" [min]="today" (change)="onDateChange($event)" />
-    <div *ngIf="bookingForm.controls['selectedDate'].touched && bookingForm.controls['selectedDate'].invalid" class="error">
-      Required.
-    </div>
-  </div>
-
-  <!-- Available Time Slots -->
-  <div class="form-group">
-    <label>Select a Time Slot <span class="error">*</span></label>
-    <div class="slots">
-      <button *ngFor="let slot of slots" 
-              [disabled]="!slot.available" 
-              [ngClass]="{'active': bookingForm.value.selectedSlot === (slot.start + ' - ' + slot.end)}"
-              (click)="bookingForm.patchValue({selectedSlot: slot.start + ' - ' + slot.end})">
-        {{ slot.start }} - {{ slot.end }}
-      </button>
-    </div>
-    <div *ngIf="bookingForm.controls['selectedSlot'].touched && bookingForm.controls['selectedSlot'].invalid" class="error">
-      Required.
-    </div>
-  </div>
-
-  <!-- Book Now Button -->
-  <button (click)="onBookNow()" [disabled]="bookingForm.invalid" class="book-now-btn">BOOK NOW</button>
-
-
       <!-- Add-ons Section -->
       <div class="section">
-        <h3>Add Ons</h3>
+        <h3 style="font-size: 20px;">Make it more Special</h3>
         <div class="form-group">
-          <label>Select a Cake</label>
+          <label style="font-size: 15px;">Select a Cake</label>
           <select (change)="onCakeSelect($event)">
             <option value="">Select Cake</option>
             <option *ngFor="let cake of cakes" [value]="cake.name + '-' + cake.price">
@@ -133,14 +70,18 @@
           </select>
         </div>
 
-        <div class="special-decor">
-          <h3>Special Decor</h3>
+        <div class="section">
+          <p style="font-size: 15px; font-weight: bold; display: block; margin-bottom: 5px;">Special Decor</p>
           <div class="decor-grid">
-            <div *ngFor="let decor of specialDecor" class="decor-item">
+            <div *ngFor="let decor of specialDecor" 
+            class="decor-item" 
+            (click)="toggleDecorSelection(decor, $event)"
+            [ngClass]="{'selected': isSelected(decor)}" >
+             
               <img [src]="decor.image" [alt]="decor.name" />
               <p>{{ decor.name }}</p>
               <p>Rs. {{ decor.price }}</p>
-              <input type="checkbox" (change)="toggleDecorSelection(decor, $event)" />
+              <input type="checkbox" #checkbox (change)="toggleDecorSelection(decor, $event)" class="hidden-checkbox"/>
             </div>
           </div>
         </div>

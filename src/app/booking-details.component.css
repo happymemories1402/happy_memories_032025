@@ -164,6 +164,11 @@ button:hover {
   margin-bottom: 10px;
 }
 
+.decor-item.selected {
+  border: 2px solid #007bff; /* Highlight border */
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue background */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .booking-wrapper {
@@ -245,3 +250,30 @@ input, select, button {
   background: #999;
   cursor: not-allowed;
 }
+
+textarea {
+  width: 100%; /* Make textarea full width */
+  height: 120px; /* Adjust height */
+  padding: 10px; /* Add padding for spacing */
+  font-size: 14px; /* Adjust font size */
+  line-height: 1.5; /* Increase line spacing */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; /* Allow resizing vertically */
+}
+
+/* Styling the placeholder */
+textarea::placeholder {
+  font-size: 14px; /* Adjust font size */
+  line-height: 1.5; /* Ensure multiline placeholder looks good */
+  color: #888; /* Light grey color */
+  opacity: 1; /* Ensure visibility */
+  text-align: left;
+}
+
+.hidden-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+

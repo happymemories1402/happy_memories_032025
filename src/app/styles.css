@@ -1,0 +1,79 @@
+/* Ensure the theme is applied */
+.theme-default .bs-datepicker {
+    width: 350px !important; /* Adjust width */
+    background-color: #e8dede !important; /* Light background */
+    border-radius: 8px !important;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2) !important;
+    padding: 10px !important;
+    border: none !important;
+  }
+  
+  /* Datepicker Header */
+  .theme-default .bs-datepicker-head {
+    background: transparent !important;
+    border-bottom: none !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #333 !important;
+    text-align: center !important;
+  }
+  
+  /* Navigation Arrows */
+  .theme-default .bs-datepicker-navigation-view .previous,
+  .theme-default .bs-datepicker-navigation-view .next {
+    color: #000 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+  }
+  
+  /* Days Grid */
+  .theme-default .bs-datepicker-body {
+    padding: 10px !important;
+  }
+  
+  .theme-default .bs-datepicker-body table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  
+  .theme-default .bs-datepicker-body table td,
+  .theme-default .bs-datepicker-body table th {
+    text-align: center !important;
+    padding: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+  }
+  
+  /* Selected Date */
+  .theme-default .bs-datepicker-body table td.selected {
+    background: #111 !important; /* Dark background */
+    color: #fff !important;
+    border-radius: 50% !important;
+    font-weight: bold !important;
+  }
+  
+  /* Hover Effect */
+  .theme-default .bs-datepicker-body table td:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 50% !important;
+  }
+  
+  /* Disabled Dates */
+  .theme-default .bs-datepicker-body table td.is-other-month,
+  .theme-default .bs-datepicker-body table td.is-disabled {
+    color: #aaa !important;
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+  }
+  
+  /* Weekend Dates */
+  .theme-default .bs-datepicker-body table td.is-weekend {
+    color: #d9534f !important;
+  }
+  
+  /* Today’s Date */
+  .theme-default .bs-datepicker-body table td.is-today {
+    border: 2px solid #111 !important;
+    font-weight: bold !important;
+  }
+  

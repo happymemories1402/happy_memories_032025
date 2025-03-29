@@ -41,7 +41,6 @@ export class BookingDetailsComponent {
   cart: any[] = [];
   total = 0;
   selectedCake: any = null;
-  selectedRoom: any = null;
   totalAmount = 0;
   peoplePrice = 0;
   
@@ -62,9 +61,10 @@ export class BookingDetailsComponent {
 
     console.log('Appouintemnt details is Booking details comp: ', this.appointmentService.getAppointmentDetails());
     this.selectedAppointment = this.appointmentService.getAppointmentDetails();
+
     this.selectedSlot = Object.values(this.selectedAppointment?.selectedSlot || {})[0] || 'none';
     //bookingDetails.selectedCake?.name || 'None'
-    console.log('slot: ', this.selectedSlot);
+    console.log('slot: ', this.selectedSlot)
 
     this.bookingForm = this.fb.group({
       bookingName: ['', Validators.required],
@@ -76,12 +76,8 @@ export class BookingDetailsComponent {
       peopleCount: [1],
       selectedDate: ['', Validators.required],
       selectedSlot: ['', Validators.required],
-      roomType: ['Select Room', Validators.required], 
     });
-    // Subscribe to form status changes
-    // this.bookingForm.statusChanges.subscribe(status => {
-    //   this.formValid = status === 'VALID';
-    // });
+    this.updateTotal();
   }
 
   ngOnInit() {
@@ -144,35 +140,36 @@ export class BookingDetailsComponent {
     this.updateTotal();
   }
 
-  onRoomTypeSelect(event: any) {
-    const selectedValue = event.target.value;
-    if (selectedValue && selectedValue.trim() !== '') {
-      const [name, price] = selectedValue.split('-');
-      this.selectedRoom = { name, price: Number(price) };
-      this.bookingForm.controls['roomType'].setValue(selectedValue);
-    } else {
-      this.bookingForm.controls['roomType'].setValue(''); 
-      this.selectedRoom = null;
-    }
-    this.updateTotal();
-  }
-
   toggleDecorSelection(decor: any, event: any) {
-    if (event.target.checked) {
-      this.selectedDecors.push(decor);
-    } else {
-      this.selectedDecors = this.selectedDecors.filter(item => item.name !== decor.name);
+    event.stopPropagation();
+    const decorItem = event.currentTarget as HTMLElement;
+    const checkbox = decorItem.querySelector('input[type="checkbox"]') as HTMLInputElement;
+
+    if (checkbox) {
+      checkbox.checked = !checkbox.checked; // Manually toggle checkbox state
     }
-    this.updateTotal();
+
+    // Apply selection logic
+    if (checkbox?.checked) {
+     this.selectedDecors.push(decor);
+    } else {
+     this.selectedDecors = this.selectedDecors.filter(item => item.name !== decor.name);
+    }
+
+  this.updateTotal();
   }
 
+  isSelected(decor: any): boolean {
+    return this.selectedDecors.some(item => item.name === decor.name);
+  }
+  
   updateTotal() {
     this.peopleCount = this.bookingForm.get('peopleCount')?.value || 1;
     this.peoplePrice = this.peopleCount <= 2 ? 0 : (this.peopleCount - 2) * 150;
     
     let cakePrice = this.selectedCake ? this.selectedCake.price : 0;
     let decorPrice = this.selectedDecors.reduce((total, decor) => total + decor.price, 0);
-    let roomPrice = this.selectedRoom ? this.selectedRoom.price : 0;
+    let roomPrice = this.selectedAppointment ? this.selectedAppointment.price : 0;
     this.totalAmount = this.peoplePrice + cakePrice + decorPrice + roomPrice;
   }
 
@@ -186,8 +183,7 @@ export class BookingDetailsComponent {
       ...this.bookingForm.value,
       selectedCake: this.selectedCake,
       selectedDecors: this.selectedDecors,
-      totalAmount: this.totalAmount,
-      selectedRoom: this.selectedRoom
+      totalAmount: this.totalAmount
     };
 
     this.sendEmail(bookingDetails);
