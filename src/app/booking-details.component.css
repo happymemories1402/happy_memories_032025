@@ -174,3 +174,74 @@ button:hover {
     width: 100%;
   }
 }
+
+/* time slot picker */ 
+.booking-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.slots button {
+  padding: 10px;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.slots button.active {
+  background: #002855;
+  color: white;
+}
+
+.slots button:disabled {
+  background: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.book-now-btn {
+  background: #002855;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.book-now-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import emailjs from '@emailjs/browser';
 import { BookingDetailsService } from './booking-details.service';
+import { AppointmentService } from './appointment.service';
 
 @Component({
   selector: 'booking-details',
@@ -11,6 +12,7 @@ import { BookingDetailsService } from './booking-details.service';
   styleUrls: ['./booking-details.component.css']
 })
 export class BookingDetailsComponent {
+  today: string = new Date().toISOString().split('T')[0];
   peopleCount: number = 1;
   bookingForm: FormGroup;
   selectedDecors: any[] = []; // Stores selected decorations
@@ -51,10 +53,19 @@ export class BookingDetailsComponent {
     { start: '7:00pm', end: '9:30pm' },
   ];
   filteredSlots: { start: string; end: string }[] = [];
-  today: string = '';
+  //today: string = '';
   formValid: boolean = false;
+  selectedAppointment: any;
+  selectedSlot: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private bookingDetailsService : BookingDetailsService) {
+  constructor(private fb: FormBuilder, private router: Router, private bookingDetailsService : BookingDetailsService, private appointmentService: AppointmentService) {
+
+    console.log('Appouintemnt details is Booking details comp: ', this.appointmentService.getAppointmentDetails());
+    this.selectedAppointment = this.appointmentService.getAppointmentDetails();
+    this.selectedSlot = Object.values(this.selectedAppointment?.selectedSlot || {})[0] || 'none';
+    //bookingDetails.selectedCake?.name || 'None'
+    console.log('slot: ', this.selectedSlot);
+
     this.bookingForm = this.fb.group({
       bookingName: ['', Validators.required],
       whatsappNumber: ['', Validators.required],
@@ -68,9 +79,9 @@ export class BookingDetailsComponent {
       roomType: ['Select Room', Validators.required], 
     });
     // Subscribe to form status changes
-    this.bookingForm.statusChanges.subscribe(status => {
-      this.formValid = status === 'VALID';
-    });
+    // this.bookingForm.statusChanges.subscribe(status => {
+    //   this.formValid = status === 'VALID';
+    // });
   }
 
   ngOnInit() {
@@ -207,22 +218,32 @@ export class BookingDetailsComponent {
       // Store data in the service
       this.bookingDetailsService.setBookingDetails(templateParams);
   
-      emailjs.send(serviceID, templateID, templateParams, publicKey)
-        .then(response => {
-          console.log('Email sent successfully!', response);
-          this.router.navigate(['/booking-summary']);
-        })
-        .catch(error => {
-          console.error('Email sending failed:', error);
-          alert('Error sending email. Please try again.');
-        });
+      // emailjs.send(serviceID, templateID, templateParams, publicKey)
+      //   .then(response => {
+      //     console.log('Email sent successfully!', response);
+      //     this.router.navigate(['/booking-summary']);
+      //   })
+      //   .catch(error => {
+      //     console.error('Email sending failed:', error);
+      //     alert('Error sending email. Please try again.');
+      //   });
   }
 
-  onSubmit1() {
 
-    this.router.navigate(['/booking-summary']);
-    console.log('routed!!!');
-    
+
+  slots = [
+    { start: '10:00 AM', end: '12:00 PM', available: false },
+    { start: '12:30 PM', end: '2:30 PM', available: false },
+    { start: '3:00 PM', end: '5:00 PM', available: false },
+    { start: '5:30 PM', end: '7:30 PM', available: true },
+    { start: '8:00 PM', end: '10:00 PM', available: true }
+  ];
+  
+
+  onBookNow() {
+    if (this.bookingForm.valid) {
+      alert("Booking Confirmed: " + JSON.stringify(this.bookingForm.value));
+    }
   }
   
 }

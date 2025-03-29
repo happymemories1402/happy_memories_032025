@@ -7,10 +7,12 @@ import { BookingSummaryComponent } from './booking-summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BookingDetailsComponent } from './booking-details.component';
+import { AppointmentComponent } from './appointment.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
+    AppointmentComponent,
     BookingDetailsComponent, 
     BookingSummaryComponent
   ],

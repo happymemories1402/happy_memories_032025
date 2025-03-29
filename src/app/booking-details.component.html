@@ -91,6 +91,35 @@
           </div>
       </div>
 
+  <!-- Date Picker -->
+  <div class="form-group">
+    <label>Select a Date <span class="error">*</span></label>
+    <input type="date" formControlName="selectedDate" [min]="today" (change)="onDateChange($event)" />
+    <div *ngIf="bookingForm.controls['selectedDate'].touched && bookingForm.controls['selectedDate'].invalid" class="error">
+      Required.
+    </div>
+  </div>
+
+  <!-- Available Time Slots -->
+  <div class="form-group">
+    <label>Select a Time Slot <span class="error">*</span></label>
+    <div class="slots">
+      <button *ngFor="let slot of slots" 
+              [disabled]="!slot.available" 
+              [ngClass]="{'active': bookingForm.value.selectedSlot === (slot.start + ' - ' + slot.end)}"
+              (click)="bookingForm.patchValue({selectedSlot: slot.start + ' - ' + slot.end})">
+        {{ slot.start }} - {{ slot.end }}
+      </button>
+    </div>
+    <div *ngIf="bookingForm.controls['selectedSlot'].touched && bookingForm.controls['selectedSlot'].invalid" class="error">
+      Required.
+    </div>
+  </div>
+
+  <!-- Book Now Button -->
+  <button (click)="onBookNow()" [disabled]="bookingForm.invalid" class="book-now-btn">BOOK NOW</button>
+
+
       <!-- Add-ons Section -->
       <div class="section">
         <h3>Add Ons</h3>
@@ -124,8 +153,12 @@
     <h3>Booking Summary</h3>
     <p>Number of People: {{ peopleCount }} (Rs. {{ peoplePrice }})</p>
 
-    <div *ngIf="selectedRoom">
-      <p>Room type: {{ selectedRoom.name }} - Rs. {{ selectedRoom.price }}</p>
+    <div>
+      <p>Selected room: {{ selectedAppointment.title }} - Rs. {{ selectedAppointment.price }} for {{selectedAppointment.duration}}</p>
+    </div>
+
+    <div>
+      <p>Date: {{ selectedAppointment.selectedDate }} Slot: {{ selectedSlot }}</p>
     </div>
 
     <div *ngIf="selectedCake">

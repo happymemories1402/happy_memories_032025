@@ -1,0 +1,48 @@
+<div class="appointments-container">
+  <h2 class="heading">ONLINE APPOINTMENTS</h2>
+  <div class="appointments-grid">
+    <div *ngFor="let appointment of appointments" class="appointment-card">
+      <img [src]="appointment.image" [alt]="appointment.title" class="appointment-image" />
+      <div class="appointment-info">
+        <h3>{{ appointment.title }}</h3>
+        <p>{{ appointment.duration }} | ₹{{ appointment.price }}</p>
+        <button class="book-btn" (click)="toggleBookingForm(appointment.id)">
+          VIEW SLOTS
+        </button>
+
+        <!-- Booking Form (Embedded, Not Modal) -->
+        <div *ngIf="selectedAppointments[appointment.id]" class="booking-form">
+          <h4>Select Date & Time</h4>
+
+          <!-- Date Picker -->
+          <div class="form-group">
+            <label>Select a Date <span class="error">*</span></label>
+            <input 
+              type="date" 
+              [(ngModel)]="selectedDate[appointment.id]"
+              [min]="today" 
+              (change)="onDateChange(appointment.id, $event)" />
+          </div>
+
+          <!-- Available Time Slots -->
+          <div class="form-group">
+            <label>Select a Time Slot <span class="error">*</span></label>
+            <div class="slots">
+              <button *ngFor="let slot of slots" 
+                      [disabled]="!slot.available" 
+                      [ngClass]="{'active': selectedSlot[appointment.id] === (slot.start + ' - ' + slot.end)}"
+                      (click)="selectSlot(appointment.id, slot.start, slot.end)">
+                {{ slot.start }} - {{ slot.end }}
+              </button>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button type="button" (click)="submitBooking(appointment)">BOOK</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
