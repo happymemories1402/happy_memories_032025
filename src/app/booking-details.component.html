@@ -94,12 +94,12 @@
     <h3>Booking Summary</h3>
     <p>Number of People: {{ peopleCount }} (Rs. {{ peoplePrice }})</p>
 
-    <div>
+    <div *ngIf="selectedAppointment">
       <p>Selected room: {{ selectedAppointment.title }} - Rs. {{ selectedAppointment.price }} for {{selectedAppointment.duration}}</p>
     </div>
 
-    <div>
-      <p>Date: {{ selectedAppointment.selectedDate }} Slot: {{ selectedSlot }}</p>
+    <div *ngIf="selectedAppointment"> 
+      <p>Date: {{ selectedAppointment.selectedDate | date:'EEE, MMM d, y' }} Slot: {{ selectedSlot }}</p>
     </div>
 
     <div *ngIf="selectedCake">

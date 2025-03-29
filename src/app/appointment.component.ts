@@ -40,7 +40,7 @@ export class AppointmentComponent {
   }
 
   onDateChange(appointmentId: number, event: any) {
-    const selectedDate = event.target.value;
+    const selectedDate = event;
     if (selectedDate) {
       this.chosenDate = selectedDate;
       // Enable only available time slots
@@ -64,4 +64,6 @@ export class AppointmentComponent {
   selectSlot(appointmentId: number, start: string, end: string) {
     this.selectedSlot[appointmentId] = `${start} - ${end}`;
   }
+  minDate: Date = new Date(); // Sets minimum date to today
+
 }

@@ -127,3 +127,25 @@ p {
   cursor: not-allowed;
 }
 
+/* Fix Datepicker Position */
+::ng-deep .bs-datepicker-container {
+  z-index: 1050 !important;
+  position: absolute !important;
+  background-color: rgb(185, 180, 180) !important;
+  box-shadow: 0px 4px 10px rgba(226, 224, 224, 0.2);
+  border-radius: 8px;
+  top: 100% !important; /* Ensure it opens below the input */
+  left: 0;
+  width: auto;
+}
+
+::ng-deep .bs-datepicker .disabled, 
+::ng-deep .bs-datepicker .is-disabled {
+  color: #a0a0a0 !important;  /* Change to grey */
+  background: #f5f5f5 !important; /* Light grey background */
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  text-decoration: line-through;
+}
+
+

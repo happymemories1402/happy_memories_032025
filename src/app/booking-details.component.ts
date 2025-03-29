@@ -16,11 +16,26 @@ export class BookingDetailsComponent {
   peopleCount: number = 1;
   bookingForm: FormGroup;
   selectedDecors: any[] = []; // Stores selected decorations
-  occasions = ['Birthday', 'Anniversary', 'Other'];
+  occasions = ['Anniversary', 'Birthday', 'Bride to be' , 'Mom to be', 'Groom to be' , 'Date' ,'Other'];
   cakes = [
-    { name: 'Classic Vanilla', price: 350},
-    { name: 'Strawberry Delight', price: 450},
-    { name: 'Fresh Pineapple', price: 450}
+    { name: 'Classic Vanilla 1/2 KG', price: 400},
+    { name: 'Classic Vanilla 1 KG', price: 650},
+    { name: 'Choco Vannilla 1/2 KG', price: 450},
+    { name: 'Choco Vannilla 1 KG', price: 700},
+    { name: 'Strawberry Delight 1/2 KG', price: 400},
+    { name: 'Strawberry Delight 1 KG', price: 650},
+    { name: 'Butter Scotch 1/2 KG', price: 400},
+    { name: 'Butter Scotch 1 KG', price: 650},
+    { name: 'Fresh PineApple 1/2 KG', price: 450},
+    { name: 'Fresh PineApple 1 KG', price: 700},
+    { name: 'Black Current 1/2 KG', price: 450},
+    { name: 'Black Current 1 KG', price: 700},
+    { name: 'Red Velvet 1/2 KG', price: 450},
+    { name: 'Red Velvet 1/2 KG', price: 750},
+    { name: 'Black Forest', price: 450},
+    { name: 'Black Forest', price: 750},
+    { name: 'Oreo', price: 450},
+    { name: 'Oreo', price: 750}
   ];
 
   rooms = [
@@ -30,12 +45,14 @@ export class BookingDetailsComponent {
   ];
 
   specialDecor = [
-    { name: 'Fog Entry', price: 500, image: 'assets/Matka.png' },
-    { name: 'Balloon Decoration', price: 700, image: 'assets/Matka.png' },
-    { name: 'Flower Garland', price: 600, image: 'assets/Matka.png' },
-    { name: 'LED Lights Setup', price: 800, image: 'assets/led-lights.png' },
-    { name: 'Red Carpet Entry', price: 1000, image: 'assets/red-carpet.png' },
-    { name: 'Table Centerpieces', price: 900, image: 'assets/table-centerpiece.png' }
+    { name: 'Fog Entry', price: 299, image: 'assets/fog_entry.png' },
+    { name: 'Balloon Decoration', price: 249, image: 'assets/Matka.png' },
+    { name: 'DSLR Photo / Video Shoot', price: 499, image: 'assets/Matka.png' },
+    { name: 'LED Lights Setup', price: 299, image: 'assets/Matka.png' },
+    { name: 'Red Carpet Entry', price: 499, image: 'assets/Matka.png' },
+    { name: 'Rose Petal decor', price: 99, image: 'assets/Matka.png' },
+    { name: 'Party Poopers', price: 99, image: 'assets/Matka.png' },
+    { name: 'PS5 Gaming set up with 2 Controller', price: 399, image: 'assets/Matka.png' }
   ];
 
   cart: any[] = [];
@@ -59,12 +76,8 @@ export class BookingDetailsComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private bookingDetailsService : BookingDetailsService, private appointmentService: AppointmentService) {
 
-    console.log('Appouintemnt details is Booking details comp: ', this.appointmentService.getAppointmentDetails());
     this.selectedAppointment = this.appointmentService.getAppointmentDetails();
-
     this.selectedSlot = Object.values(this.selectedAppointment?.selectedSlot || {})[0] || 'none';
-    //bookingDetails.selectedCake?.name || 'None'
-    console.log('slot: ', this.selectedSlot)
 
     this.bookingForm = this.fb.group({
       bookingName: ['', Validators.required],
@@ -74,8 +87,6 @@ export class BookingDetailsComponent {
       specialPerson: [''],
       message: [''],
       peopleCount: [1],
-      selectedDate: ['', Validators.required],
-      selectedSlot: ['', Validators.required],
     });
     this.updateTotal();
   }
@@ -183,9 +194,14 @@ export class BookingDetailsComponent {
       ...this.bookingForm.value,
       selectedCake: this.selectedCake,
       selectedDecors: this.selectedDecors,
-      totalAmount: this.totalAmount
+      totalAmount: this.totalAmount,
+      selectedDate: this.selectedAppointment?.selectedDate,
+      selectedSlot: this.selectedSlot,
+      selectedRoom: this.selectedAppointment?.title,
+      selectedRoomPrice: this.selectedAppointment?.price
     };
 
+    console.log('booking details: ', bookingDetails);
     this.sendEmail(bookingDetails);
   }
 
@@ -203,8 +219,8 @@ export class BookingDetailsComponent {
         message: bookingDetails.message,
         selected_date: bookingDetails.selectedDate,
         selected_slot: bookingDetails.selectedSlot,
-        selected_room_type: bookingDetails.selectedRoom.name,
-        selected_room_price: bookingDetails.selectedRoom.price,
+        selected_room_type: bookingDetails.selectedRoom,
+        selected_room_price: bookingDetails.selectedRoomPrice,
         selected_cake: bookingDetails.selectedCake?.name || 'None',
         cake_price: bookingDetails.selectedCake?.price || '0',
         selected_decor: bookingDetails.selectedDecors?.map((decor: { name: string }) => decor.name).join(', ') || 'None',

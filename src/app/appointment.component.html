@@ -15,10 +15,12 @@
           <h4>Select Date & Time</h4>
 
           <!-- Date Picker -->
-          <div>
+          <div class="datepicker-container">
             <label>Select a Date <span class="error">*</span></label>
             <input 
-              type="text" bsDatepicker [bsConfig]="{ showWeekNumbers: false, containerClass: 'theme-default' }"
+              type="text" bsDatepicker [bsConfig]="{ showWeekNumbers: false, containerClass: 'theme-custom', minDate: minDate}"
+              [isOpen]="true"
+              [(ngModel)]="chosenDate" 
               (change)="onDateChange(appointment.id, $event)" />
           </div>
 

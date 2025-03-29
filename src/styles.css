@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+/* Ensures the datepicker is styled correctly */
+  
+::ng-deep .theme-custom .bs-datepicker {
+    background: #f8f4f4 !important; /* Background color similar to screenshot */
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 10px;
+  }
+  
+  /* Header Styling */
+  .theme-custom .bs-datepicker-head {
+    background: #3c3939 !important;
+    color: black;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  /* Navigation Buttons */
+  .theme-custom .bs-datepicker-navigation {
+    color: black !important;
+    font-size: 20px;
+  }
+  
+  /* Weekday Styling */
+  .theme-custom .bs-datepicker-body table thead {
+    color: black !important;
+    font-weight: bold;
+  }
+  
+  /* Selected Date Styling */
+  .theme-custom .bs-datepicker-body table tbody tr td.selected {
+    background-color: black !important;
+    color: white !important;
+    border-radius: 50%;
+  }
+  
+  /* Circular Outline for Hover */
+  .theme-custom .bs-datepicker-body table tbody tr td span:hover {
+    border: 1px solid black !important;
+    border-radius: 50%;
+  }
+  
+  /* Open Datepicker Always */
+  .datepicker-container .bs-datepicker-container {
+    display: block !important;
+    position: relative !important;
+    visibility: visible !important;
+    opacity: 10 !important;
+  }
+  
